@@ -1,43 +1,36 @@
 // Write your code here
-import Popup from 'reactjs-popup'
-import ReactPlayer from 'react-player'
-import {IoMdClose} from 'react-icons/io'
-
-import 'reactjs-popup/dist/index.css'
+import MoviesSlider from '../MoviesSlider'
 
 import './index.css'
 
-const MovieItem = props => {
-  const {movieDetails} = props
-  const {thumbnailUrl, videoUrl} = movieDetails
+const actionMovie = 'ACTION'
+const comedyMovie = 'COMEDY'
+
+const PrimeVideo = props => {
+  const {moviesList} = props
+  const actionMoviesList = moviesList.filter(
+    movie => movie.categoryId === actionMovie,
+  )
+
+  const comedyMoviesList = moviesList.filter(
+    movie => movie.categoryId === comedyMovie,
+  )
 
   return (
-    <div>
-      <Popup
-        modal
-        trigger={
-          <img className="thumbnail" src={thumbnailUrl} alt="thumbnail" />
-        }
-        className="popup-content"
-      >
-        {close => (
-          <div className="modal-container">
-            <button
-              className="close-button"
-              type="button"
-              data-testid="closeButton"
-              onClick={() => close()}
-            >
-              <IoMdClose size={20} color="#231f20" />
-            </button>
-            <div className="movie-player-container">
-              <ReactPlayer url={videoUrl} controls />
-            </div>
-          </div>
-        )}
-      </Popup>
+    <div className="prime-video-container">
+      <img
+        className="image"
+        src="https://assets.ccbp.in/frontend/react-js/prime-video-img.png"
+        alt="prime video"
+      />
+      <div className="movies-container">
+        <h1 className="movies-heading">Action Movies</h1>
+        <MoviesSlider moviesList={actionMoviesList} />
+        <h1 className="movies-heading">Comedy Movies</h1>
+        <MoviesSlider moviesList={comedyMoviesList} />
+      </div>
     </div>
   )
 }
 
-export default MovieItem
+export default PrimeVideo
